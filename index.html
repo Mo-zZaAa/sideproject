@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seeun Kim - Connecting the dots</title>
+    <meta name="description" content="Driven by people, grounded in purpose, always building for better! Seeun Kim의 인터랙티브 전자명함입니다.">
+    <meta property="og:title" content="Seeun Kim - Connecting the dots">
+    <meta property="og:description" content="Driven by people, grounded in purpose, always building for better! Seeun Kim의 인터랙티브 전자명함입니다.">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP for owl animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Three.js for background effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- EmailJS for contact form -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body class="light-mode">
+    <!-- 테마 토글 버튼 -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle" aria-label="테마 변경">
+            <i class="fas fa-sun light-icon"></i>
+            <i class="fas fa-moon dark-icon"></i>
+        </button>
+    </div>
+
+    <!-- Hero SNS 링크 -->
+    <div class="hero-sns">
+        <a href="https://github.com/Mo-zZaAa" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/seeun-kim-9a5186275/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://velog.io/@mossie/posts" target="_blank" rel="noopener noreferrer" aria-label="Velog">
+            <i class="fas fa-pen-fancy"></i>
+        </a>
+        <a href="https://www.instagram.com/sesillver/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+
+    <!-- 배경 연결선 애니메이션 -->
+    <div class="background-connections">
+        <div class="connection-dots">
+            <div class="dot" data-section="hero"></div>
+            <div class="dot" data-section="about"></div>
+            <div class="dot" data-section="experiences"></div>
+            <div class="dot" data-section="skills"></div>
+            <div class="dot" data-section="idea"></div>
+            <div class="dot" data-section="contact"></div>
+        </div>
+        <canvas id="connectionCanvas" class="connection-canvas"></canvas>
+    </div>
+
+    <!-- Three.js 배경 효과 -->
+    <div id="threeBackground" class="three-background"></div>
+
+    <!-- 메인 컨테이너 -->
+    <main class="container">
+        <!-- Hero 섹션 -->
+        <section class="hero-section" id="hero">
+            <div class="hero-background">
+                <h1 class="hero-bg-text" id="heroBgText">Connecting the dots<span class="dots-animation">...</span></h1>
+            </div>
+            <div class="hero-content">
+                <div class="hero-profile">
+                    <img src="profile.jpg" alt="Seeun Kim" class="profile-image">
+                </div>
+                <h1 class="hero-title">Seeun Kim</h1>
+                <p class="hero-subtitle">Driven by people, grounded in purpose, always building for better!</p>
+            </div>
+        </section>
+
+        <!-- About Me 섹션 -->
+        <section class="about-section" id="about">
+            <div class="about-container">
+                <h2 class="section-title">About Me</h2>
+                <p class="about-intro">
+                    평생 배워도 배울 게 남아있다는 게 인생에서 가장 멋진 점이라고 생각합니다.<br><br>
+                    재미있어 보이면 일단 도전하고, 주어진 기회마다 진심을 다해 몰두하다보면,<br>
+                    하나하나의 경험이 점처럼 서로 이어지며 길을 만든다는 것을 발견했습니다!<br><br>
+                    그래서 오늘도 무언가 배우며 한 걸음 나아갑니다.
+                </p>
+                
+                <div class="education-section">
+                    <h2 class="section-title">Education</h2>
+                    <div class="education-grid">
+                        <div class="education-card">
+                            <div class="education-logo">
+                                <img src="hackathon.png" alt="성균관대학교" loading="lazy">
+                            </div>
+                            <div class="education-info">
+                                <h3>성균관대학교 (SKKU)</h3>
+                                <p class="education-period">2023년 - 2027년</p>
+                                <p class="education-major">글로벌경영 학부</p>
+
+                                <div class="education-activities">
+                                    <span>• '수선관 그 밴드' 9기 베이스 기타 (2년) • '멋쟁이 사자처럼' 프로그래밍 동아리 (2년) • 우수 학부 연구생 (4개월, 김영한 교수님 지도)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="education-card">
+                            <div class="education-logo">
+                                <img src="KakaoTalk_20250817_220353518_08.jpg" alt="University of Tasmania" loading="lazy">
+                            </div>
+                            <div class="education-info">
+                                <h3>University of Tasmania</h3>
+                                <p class="education-period">2025년 여름</p>
+                                <p class="education-major">International Internship</p>
+
+                                <p class="education-program">• 오디오데이터 활용 머신러닝 프로젝트 수행</p>
+                            </div>
+                        </div>
+                        
+                        <div class="education-card">
+                            <div class="education-logo">
+                                <img src="hanken.jpg" alt="Hanken School of Economics" loading="lazy">
+                            </div>
+                            <div class="education-info">
+                                <h3>Hanken School of Economics</h3>
+                                <p class="education-period">2025년 겨울 학점교류</p>
+                                <p class="education-major">Sustainable Finance</p>
+
+                                <p class="education-program">• ESG 기반 금융 전략·지배구조 분석 및 평가 수행</p>
+                            </div>
+                        </div>
+                        
+                        <div class="education-card">
+                            <div class="education-logo">
+                                <img src="lund.jpg" alt="Lund University" loading="lazy">
+                            </div>
+                            <div class="education-info">
+                                <h3>Lund University</h3>
+                                <p class="education-period">2025년 겨울 학점교류</p>
+                                <p class="education-major">Critical Management & Business Practices</p>
+
+                                <p class="education-program">• 경영 담론·사례 분석 및 사회·환경적 관점 학습</p>
+                            </div>
+                        </div>
+                        
+                        <div class="education-card">
+                            <div class="education-logo">
+                                <img src="berlin.jpg" alt="HWR Berlin" loading="lazy">
+                            </div>
+                            <div class="education-info">
+                                <h3>HWR Berlin</h3>
+                                <p class="education-period">2024년 여름 학점교류</p>
+                                <p class="education-major">Entrepreneurship and Innovation</p>
+
+                                <p class="education-program">• 스타트업·비즈니스 모델 개발 프로젝트 진행</p>
+                            </div>
+                        </div>
+                        
+                        <div class="education-card">
+                            <div class="education-logo">
+                                <img src="snfl.jpg" alt="SNFL" loading="lazy">
+                            </div>
+                            <div class="education-info">
+                                <h3>성남외국어고등학교 (SNFL)</h3>
+                                <p class="education-period">2020년 - 2022년</p>
+                                <p class="education-major">독일어문학과</p>
+
+                                <p class="education-achievement">• SNFL 명예의 전당 등재</p>
+                                <p class="education-achievement">• 학술동아리 'Focus On Media' 회장</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experiences 섹션 -->
+        <section class="experiences-section" id="experiences">
+            <div class="experiences-container">
+                <h2 class="section-title">Experiences</h2>
+                
+                <div class="experiences-scroll">
+                    <div class="experiences-grid">
+                        <div class="experience-card" data-project="tassiebird">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="tassiebird.png" alt="TassieBirdAI" loading="lazy">
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">TassieBirdAI</h3>
+                                    <p class="card-desc">현지 데이터 활용 AI 해커톤</p>
+                                    <i class="fas fa-kiwi-bird card-icon"></i>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h3>TassieBirdAI Hackathon</h3>
+                                    <p class="back-period">2025년 7월 · University of Tasmania</p>
+                                    <p class="back-description">멸종위기 조류 보호를 위한 음성 분류 AI 개발</p>
+                                    <div class="back-achievements">
+                                        <p>• Python·TensorFlow로 오디오 데이터 전처리와 모델 학습을 담당했습니다.</p>
+                                        <p>• 복잡한 기술 과정을 직접 다루며 데이터 중심 문제 해결 역량을 키웠습니다.</p>
+                                    </div>
+                                    <div class="back-skills">
+                                        <span>AI/ML</span>
+                                        <span>Python</span>
+                                        <span>Audio Processing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-card" data-project="gangnam">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="unnie.png" alt="Gangnam Unni" loading="lazy">
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">[산학협력] 강남언니</h3>
+                                    <p class="card-desc">신사업 리서치 및 전략 수립</p>
+                                    <i class="fas fa-magic card-icon"></i>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h3>Gangnam Unni Project</h3>
+                                    <p class="back-period">2025년 6월 · Healing Paper Inc.</p>
+                                    <p class="back-description">산학협력을 통해 스킨케어 진단 기기의 BM 및 협업기회를 리서치했습니다.</p>
+                                    <div class="back-achievements">
+                                        <p>• 기기에서 생성되는 데이터 가치사슬과 활용 방안을 조사·정리했습니다.</p>
+                                        <p>• 리서치 결과를 서비스 전략으로 연결하는 시각을 넓혔습니다.</p>
+                                    </div>
+                                    <div class="back-skills">
+                                        <span>Business Strategy</span>
+                                        <span>Data Analysis</span>
+                                        <span>Value Chain</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-card" data-project="gopax">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="gopax.png" alt="GOPAX" loading="lazy">
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">[산학협력] GOPAX</h3>
+                                    <p class="card-desc">거래유저 및 거래량 증대 전략 수립</p>
+                                    <i class="fas fa-coins card-icon"></i>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h3>GOPAX Project</h3>
+                                    <p class="back-period">2025년 5월 · Streami Inc.</p>
+                                    <p class="back-description">사용자 리텐션과 거래량 성장을 위한 UX 전략을 설계했습니다.</p>
+                                    <div class="back-achievements">
+                                        <p>• 앱 사용자를 대상으로 웹 크롤링과 인터뷰를 통해 행동 패턴을 조사했습니다.</p>
+                                        <p>• 사용자 관점을 이해하고 UX 개선 아이디어로 전환하는 경험을 쌓았습니다.</p>
+                                    </div>
+                                    <div class="back-skills">
+                                        <span>UX Research</span>
+                                        <span>Information Architecture</span>
+                                        <span>Data Analysis</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-card" data-project="busstop">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="bus.jpg" alt="Bus Stop Safety" loading="lazy">
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">Bus Stop Safety</h3>
+                                    <p class="card-desc">보행자 안전 장치 프로토타입</p>
+                                    <i class="fas fa-bus card-icon"></i>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h3>Bus Stop Safety Blinkers</h3>
+                                    <p class="back-period">2024년 1월 - 2월 · 성균관대학교</p>
+                                    <p class="back-description">버스 방향지시등(깜빡이) 인식 하드웨어 프로토타입 개발</p>
+                                    <div class="back-achievements">
+                                        <p>• 교통 안전 문제를 직접 발굴하고, 이를 해결하는 제품을 디자인하여 프로토타입을 제작했습니다.</p>
+                                        <p>• 사용자 리서치와 현장 테스트를 시행하여 아이디어를 검증했습니다.</p>
+                                    </div>
+                                    <div class="back-skills">
+                                        <span>Prototyping</span>
+                                        <span>User Research</span>
+                                        <span>Field Testing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 무한루프를 위한 카드 복제 -->
+                        <div class="experience-card" data-project="tassiebird-clone">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="tassiebird.png" alt="TassieBirdAI" loading="lazy">
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">TassieBirdAI</h3>
+                                    <p class="card-desc">현지 데이터 활용 AI 해커톤</p>
+                                    <i class="fas fa-kiwi-bird card-icon"></i>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h3>TassieBirdAI Hackathon</h3>
+                                    <p class="back-period">2025년 7월 · University of Tasmania</p>
+                                    <p class="back-description">멸종위기 조류 보호를 위한 음성 분류 AI 개발</p>
+                                    <div class="back-achievements">
+                                        <p>• Python·TensorFlow로 오디오 데이터 전처리와 모델 학습을 담당했습니다.</p>
+                                        <p>• 복잡한 기술 과정을 직접 다루며 데이터 중심 문제 해결 역량을 키웠습니다.</p>
+                                    </div>
+                                    <div class="back-skills">
+                                        <span>AI/ML</span>
+                                        <span>Python</span>
+                                        <span>Audio Processing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-card" data-project="gangnam-clone">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="unnie.png" alt="Gangnam Unni" loading="lazy">
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">[산학협력] 강남언니</h3>
+                                    <p class="card-desc">신사업 리서치 및 전략 수립</p>
+                                    <i class="fas fa-magic card-icon"></i>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h3>Gangnam Unni Project</h3>
+                                    <p class="back-period">2025년 6월 · Healing Paper Inc.</p>
+                                    <p class="back-description">산학협력을 통해 스킨케어 진단 기기의 BM 및 협업기회를 리서치했습니다.</p>
+                                    <div class="back-achievements">
+                                        <p>• 기기에서 생성되는 데이터 가치사슬과 활용 방안을 조사·정리했습니다.</p>
+                                        <p>• 리서치 결과를 서비스 전략으로 연결하는 시각을 넓혔습니다.</p>
+                                    </div>
+                                    <div class="back-skills">
+                                        <span>Business Strategy</span>
+                                        <span>Data Analysis</span>
+                                        <span>Value Chain</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-card" data-project="gopax-clone">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="gopax.png" alt="GOPAX" loading="lazy">
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">[산학협력] GOPAX</h3>
+                                    <p class="card-desc">거래유저 및 거래량 증대 전략 수립</p>
+                                    <i class="fas fa-coins card-icon"></i>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h3>GOPAX Project</h3>
+                                    <p class="back-period">2025년 5월 · Streami Inc.</p>
+                                    <p class="back-description">사용자 리텐션과 거래량 성장을 위한 UX 전략을 설계했습니다.</p>
+                                    <div class="back-achievements">
+                                        <p>• 앱 사용자를 대상으로 웹 크롤링과 인터뷰를 통해 행동 패턴을 조사했습니다.</p>
+                                        <p>• 사용자 관점을 이해하고 UX 개선 아이디어로 전환하는 경험을 쌓았습니다.</p>
+                                    </div>
+                                    <div class="back-skills">
+                                        <span>UX Research</span>
+                                        <span>Information Architecture</span>
+                                        <span>Data Analysis</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-card" data-project="busstop-clone">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="bus.jpg" alt="Bus Stop Safety" loading="lazy">
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">Bus Stop Safety</h3>
+                                    <p class="card-desc">보행자 안전 장치 프로토타입</p>
+                                    <i class="fas fa-bus card-icon"></i>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h3>Bus Stop Safety Blinkers</h3>
+                                    <p class="back-period">2024년 1월 - 2월 · 성균관대학교</p>
+                                    <p class="back-description">버스 방향지시등(깜빡이) 인식 하드웨어 프로토타입 개발</p>
+                                    <div class="back-achievements">
+                                        <p>• 교통 안전 문제를 직접 발굴하고, 이를 해결하는 제품을 디자인하여 프로토타입을 제작했습니다.</p>
+                                        <p>• 사용자 리서치와 현장 테스트를 시행하여 아이디어를 검증했습니다.</p>
+                                    </div>
+                                    <div class="back-skills">
+                                        <span>Prototyping</span>
+                                        <span>User Research</span>
+                                        <span>Field Testing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills 섹션 -->
+        <section class="skills-section" id="skills">
+            <div class="skills-container">
+                <h2 class="section-title">Skills</h2>
+                
+                <div class="skills-scroll">
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Programming</h3>
+                            <div class="skill-tags">
+                                <span>Python</span>
+                                <span>JavaScript</span>
+                                <span>HTML/CSS</span>
+                                <span>React</span>
+                                <span>Next.js</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>AI & Data</h3>
+                            <div class="skill-tags">
+                                <span>Machine Learning</span>
+                                <span>Data Analysis</span>
+                                <span>Audio Processing</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>Design & UX</h3>
+                            <div class="skill-tags">
+                                <span>Figma</span>
+                                <span>UX Research</span>
+                                <span>Prototyping</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Business</h3>
+                            <div class="skill-tags">
+                                <span>Strategy</span>
+                                <span>Market Research</span>
+                                <span>Data Visualization</span>
+                                <span>Problem Solving</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h3>Tools & Platforms</h3>
+                            <div class="skill-tags">
+                                <span>Git</span>
+                                <span>GitHub</span>
+                                <span>Notion</span>
+                                <span>Slack</span>
+                                <span>Jira</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3>Languages</h3>
+                            <div class="skill-tags">
+                                <span>한국어 (모국어)</span>
+                                <span>영어 (업무)</span>
+                                <span>독일어 (일상)</span>
+                            </div>
+                        </div>
+
+                        <!-- 무한루프를 위한 카드 복제 -->
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Programming</h3>
+                            <div class="skill-tags">
+                                <span>Python</span>
+                                <span>JavaScript</span>
+                                <span>HTML/CSS</span>
+                                <span>React</span>
+                                <span>Next.js</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>AI & Data</h3>
+                            <div class="skill-tags">
+                                <span>Machine Learning</span>
+                                <span>Data Analysis</span>
+                                <span>Audio Processing</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>Design & UX</h3>
+                            <div class="skill-tags">
+                                <span>Figma</span>
+                                <span>UX Research</span>
+                                <span>Prototyping</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Business</h3>
+                            <div class="skill-tags">
+                                <span>Strategy</span>
+                                <span>Market Research</span>
+                                <span>Data Visualization</span>
+                                <span>Problem Solving</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h3>Tools & Platforms</h3>
+                            <div class="skill-tags">
+                                <span>Git</span>
+                                <span>GitHub</span>
+                                <span>Notion</span>
+                                <span>Slack</span>
+                                <span>Jira</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Idea Box 섹션 -->
+        <section class="idea-section" id="idea">
+            <div class="idea-container">
+                <h2 class="section-title">Idea Box</h2>
+                <p class="idea-intro">
+                    어떤 이야기든 들려주세요! <br>
+                    궁금한 점이나 제안하고 싶은 아이디어, <br>
+                    함께 하고 싶은 프로젝트 등 무엇이든 좋아요. <br>
+                    익명으로도 보낼 수 있어요.
+                </p>
+                <p class="idea-note">
+                    연락처를 남겨주시면 빠른 시일 내에 답변드리겠습니다!
+                </p>
+                
+                <div class="idea-form">
+                    <div class="form-group" id="nameGroup">
+                        <label for="ideaName">이름 (선택사항)</label>
+                        <input type="text" id="ideaName" placeholder="익명으로 보내기 원하시면 비워두세요">
+                    </div>
+                    
+                    <div class="form-group" id="contactGroup">
+                        <label for="ideaContact">연락처 (선택사항)</label>
+                        <input type="text" id="ideaContact" placeholder="이메일, 전화번호 등">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ideaInput">아이디어나 피드백</label>
+                        <textarea id="ideaInput" placeholder="자유롭게 적어주세요..." rows="4"></textarea>
+                    </div>
+                    
+                    <div class="idea-actions">
+                        <button class="idea-button" id="submitIdea">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>보내기</span>
+                        </button>
+                        <label class="anonymous-toggle">
+                            <input type="checkbox" id="anonymousCheck">
+                            <span class="checkmark"></span>
+                            익명으로 보내기
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact 섹션 -->
+        <section class="contact-section" id="contact">
+            <div class="contact-container">
+                <h2 class="section-title">Contact</h2>
+                <p class="contact-intro">새로운 협업의 기회에 열려있습니다! <br>
+                    언제든 편히 연락 주세요!</p>
+                
+                <div class="contact-buttons">
+                    <a href="mailto:percabeth04@naver.com" class="contact-button primary">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>이메일 바로 보내기</span>
+                    </a>
+                    <button class="contact-button secondary" id="copyEmailBtn">
+                        <i class="fas fa-copy"></i>
+                        <span>이메일 주소 복사</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 토스트 메시지 -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- 스크립트 연결 -->
+    <script src="script.js"></script>
+</body>
+</html>

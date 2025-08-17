@@ -1,0 +1,12 @@
+# SPA routing - redirect all routes to index.html
+/*    /index.html   200
+
+# Force HTTPS
+http://sprightly-wisp-bdbe2e.netlify.app/* https://sprightly-wisp-bdbe2e.netlify.app/:splat 301!
+
+# Custom headers for SEO
+/  /index.html  200
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

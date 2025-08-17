@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sprightly-wisp-bdbe2e.netlify.app/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all content to be indexed
+Disallow:
+
+# Specific rules for better SEO
+Allow: /profile.jpg
+Allow: /style.css
+Allow: /script.js

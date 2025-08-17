@@ -596,6 +596,274 @@ function stopAutoScroll() {
     }
 }
 
+// 파티클 시스템
+class ParticleSystem {
+    constructor() {
+        this.container = document.getElementById('particlesContainer');
+        this.particles = [];
+        this.connections = [];
+        this.mouse = { x: 0, y: 0 };
+        this.settings = {
+            count: 50,
+            size: 4,
+            speed: 1,
+            connectionDistance: 100,
+            theme: '#059669',
+            autoGenerate: true
+        };
+        
+        this.init();
+    }
+    
+    init() {
+        this.createParticles();
+        this.bindEvents();
+        this.animate();
+        this.updateSettings();
+    }
+    
+    createParticles() {
+        this.container.innerHTML = '';
+        this.particles = [];
+        
+        for (let i = 0; i < this.settings.count; i++) {
+            const particle = this.createParticle();
+            this.particles.push(particle);
+            this.container.appendChild(particle);
+        }
+    }
+    
+    createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * window.innerWidth + 'px';
+        particle.style.top = Math.random() * window.innerHeight + 'px';
+        particle.style.width = this.settings.size + 'px';
+        particle.style.height = this.settings.size + 'px';
+        particle.style.background = this.settings.theme;
+        
+        // 랜덤 애니메이션 지연
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        
+        return particle;
+    }
+    
+    bindEvents() {
+        // 마우스 움직임 추적
+        document.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+            this.followMouse();
+        });
+        
+        // 클릭 시 폭발 효과
+        document.addEventListener('click', (e) => {
+            this.createExplosion(e.clientX, e.clientY);
+        });
+        
+        // 터치 이벤트 (모바일)
+        document.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            this.mouse.x = touch.clientX;
+            this.mouse.y = touch.clientY;
+            this.followMouse();
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            this.mouse.x = touch.clientX;
+            this.mouse.y = touch.clientY;
+            this.followMouse();
+        });
+    }
+    
+    followMouse() {
+        // 마우스 근처의 파티클들을 끌어당기기
+        this.particles.forEach(particle => {
+            const rect = particle.getBoundingClientRect();
+            const dx = this.mouse.x - (rect.left + rect.width / 2);
+            const dy = this.mouse.y - (rect.top + rect.height / 2);
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 150) {
+                const force = (150 - distance) / 150;
+                const moveX = dx * force * 0.02 * this.settings.speed;
+                const moveY = dy * force * 0.02 * this.settings.speed;
+                
+                const currentLeft = parseFloat(particle.style.left) + moveX;
+                const currentTop = parseFloat(particle.style.top) + moveY;
+                
+                particle.style.left = currentLeft + 'px';
+                particle.style.top = currentTop + 'px';
+            }
+        });
+    }
+    
+    createExplosion(x, y) {
+        const explosion = document.createElement('div');
+        explosion.className = 'explosion';
+        explosion.style.left = x + 'px';
+        explosion.style.top = y + 'px';
+        
+        // 폭발 파티클 생성
+        for (let i = 0; i < 12; i++) {
+            const angle = (i / 12) * Math.PI * 2;
+            const distance = 30 + Math.random() * 20;
+            const explodeX = Math.cos(angle) * distance;
+            const explodeY = Math.sin(angle) * distance;
+            
+            const explosionParticle = document.createElement('div');
+            explosionParticle.className = 'explosion-particle';
+            explosionParticle.style.setProperty('--explode-x', explodeX + 'px');
+            explosionParticle.style.setProperty('--explode-y', explodeY + 'px');
+            explosionParticle.style.background = this.settings.theme;
+            
+            explosion.appendChild(explosionParticle);
+        }
+        
+        document.body.appendChild(explosion);
+        
+        // 애니메이션 완료 후 제거
+        setTimeout(() => {
+            if (explosion.parentNode) {
+                explosion.parentNode.removeChild(explosion);
+            }
+        }, 800);
+    }
+    
+    drawConnections() {
+        // 기존 연결선 제거
+        this.connections.forEach(connection => {
+            if (connection.parentNode) {
+                connection.parentNode.removeChild(connection);
+            }
+        });
+        this.connections = [];
+        
+        // 새로운 연결선 그리기
+        for (let i = 0; i < this.particles.length; i++) {
+            for (let j = i + 1; j < this.particles.length; j++) {
+                const particle1 = this.particles[i];
+                const particle2 = this.particles[j];
+                
+                const rect1 = particle1.getBoundingClientRect();
+                const rect2 = particle2.getBoundingClientRect();
+                
+                const x1 = rect1.left + rect1.width / 2;
+                const y1 = rect1.top + rect1.height / 2;
+                const x2 = rect2.left + rect2.width / 2;
+                const y2 = rect2.top + rect2.height / 2;
+                
+                const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                
+                if (distance < this.settings.connectionDistance) {
+                    const connection = document.createElement('div');
+                    connection.className = 'particle-connection';
+                    connection.style.left = x1 + 'px';
+                    connection.style.top = y1 + 'px';
+                    connection.style.width = distance + 'px';
+                    connection.style.background = `linear-gradient(90deg, transparent, ${this.settings.theme}, transparent)`;
+                    
+                    const angle = Math.atan2(y2 - y1, x2 - x1);
+                    connection.style.transform = `rotate(${angle}rad)`;
+                    
+                    this.container.appendChild(connection);
+                    this.connections.push(connection);
+                }
+            }
+        }
+    }
+    
+    animate() {
+        // 연결선 그리기
+        this.drawConnections();
+        
+        // 자동 파티클 생성
+        if (this.settings.autoGenerate && Math.random() < 0.02) {
+            this.createRandomParticle();
+        }
+        
+        requestAnimationFrame(() => this.animate());
+    }
+    
+    createRandomParticle() {
+        if (this.particles.length < this.settings.count * 1.5) {
+            const particle = this.createParticle();
+            this.particles.push(particle);
+            this.container.appendChild(particle);
+            
+            // 일정 시간 후 제거
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                    this.particles = this.particles.filter(p => p !== particle);
+                }
+            }, 10000);
+        }
+    }
+    
+    updateSettings() {
+        // 설정값 업데이트
+        document.getElementById('particleCount').addEventListener('input', (e) => {
+            this.settings.count = parseInt(e.target.value);
+            document.getElementById('particleCountValue').textContent = this.settings.count;
+            this.createParticles();
+        });
+        
+        document.getElementById('particleSize').addEventListener('input', (e) => {
+            this.settings.size = parseFloat(e.target.value);
+            document.getElementById('particleSizeValue').textContent = this.settings.size;
+            this.particles.forEach(particle => {
+                particle.style.width = this.settings.size + 'px';
+                particle.style.height = this.settings.size + 'px';
+            });
+        });
+        
+        document.getElementById('particleSpeed').addEventListener('input', (e) => {
+            this.settings.speed = parseFloat(e.target.value);
+            document.getElementById('particleSpeedValue').textContent = this.settings.speed;
+        });
+        
+        document.getElementById('connectionDistance').addEventListener('input', (e) => {
+            this.settings.connectionDistance = parseInt(e.target.value);
+            document.getElementById('connectionDistanceValue').textContent = this.settings.connectionDistance;
+        });
+        
+        // 테마 색상 변경
+        const themeInputs = ['themeGreen', 'themeBlue', 'themePurple', 'themePink'];
+        themeInputs.forEach(id => {
+            document.getElementById(id).addEventListener('change', (e) => {
+                this.settings.theme = e.target.value;
+                this.particles.forEach(particle => {
+                    particle.style.background = this.settings.theme;
+                });
+            });
+        });
+        
+        // 자동 생성 토글
+        document.getElementById('autoGenerate').addEventListener('change', (e) => {
+            this.settings.autoGenerate = e.target.checked;
+        });
+    }
+}
+
+// 파티클 설정 패널 토글
+function initParticleSettings() {
+    const toggle = document.getElementById('particleToggle');
+    const settings = document.getElementById('particleSettings');
+    
+    toggle.addEventListener('click', () => {
+        settings.classList.toggle('show');
+    });
+    
+    // 설정 패널 외부 클릭 시 닫기
+    document.addEventListener('click', (e) => {
+        if (!settings.contains(e.target) && !toggle.contains(e.target)) {
+            settings.classList.remove('show');
+        }
+    });
+}
+
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -604,6 +872,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initEventListeners();
     initAutoScroll(); // 자동 스크롤 초기화 추가
+    
+    // 파티클 시스템 초기화
+    const particleSystem = new ParticleSystem();
+    initParticleSettings();
     
     // 첫 번째 섹션 활성화
     setTimeout(() => {
@@ -614,6 +886,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 500);
     
     console.log('🎯 Vibe Me - Connecting the dots 전자명함이 로드되었습니다!');
+    console.log('✨ 파티클 시스템이 활성화되었습니다!');
 });
 
 // 성능 최적화를 위한 스로틀링
